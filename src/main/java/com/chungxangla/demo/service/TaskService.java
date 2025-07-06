@@ -31,4 +31,12 @@ public class TaskService {
     public void delete(Long id){
         taskRepository.deleteById(id);;
     }
+
+    public Task update(Long id, Task updatedTask) {
+        Task existingTask = taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy task"));
+
+        existingTask.setTitle(updatedTask.getTitle());
+        return taskRepository.save(existingTask);
+    }
 }
